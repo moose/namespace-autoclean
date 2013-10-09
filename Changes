@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.14      2013-10-09 03:06:00Z (Karen Etheridge)
   * bump dependency on B::Hooks::EndOfScope, to get the separation of
     pure-perl and XS components (RT#89245)
   * repository migrated to the github moose organization
