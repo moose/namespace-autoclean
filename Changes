@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
   * bump dependency on B::Hooks::EndOfScope, to get the separation of
     pure-perl and XS components (RT#89245)
+  * repository migrated to the github moose organization
 
 0.13   2011-08-24 09:33:00 +0000
   * Fix issue in dist.ini which was causing links to be incorrectly generated.
