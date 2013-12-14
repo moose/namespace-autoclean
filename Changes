@@ -2,55 +2,55 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
-0.14      2013-10-09 03:06:00Z (Karen Etheridge)
+0.14      2013-10-09 03:06:00Z
   - bump dependency on B::Hooks::EndOfScope, to get the separation of
     pure-perl and XS components (RT#89245)
   - repository migrated to the github moose organization
 
-0.13   2011-08-24 09:33:00 +0000
+0.13      2011-08-24 09:33:00Z
   - Fix issue in dist.ini which was causing links to be incorrectly generated.
   - Re-package to remove BEGIN { $VERSION hackery by using a newer
     Dist-Zilla.
 
-0.12   2011-02-04 10:39:00 +0000
+0.12      2011-02-04 10:39:00Z
   - Bump namespace::clean dep to 0.20 to pull in the bugfix for
     Package::Stash::XS 0.19
 
-0.11   2010-05-07 19:32:37 +0200
+0.11      2010-05-07 17:32:37Z
   - Improve distribution metadata.
 
-0.10   2010-05-01 20:32:59 +0200
+0.10      2010-05-01 18:32:59Z
   - Fix documentation typo (Andrew Rodland).
 
-0.09   2009-09-15 07:45:16 +0200
+0.09      2009-09-15 05:45:16Z
   - Fix to avoid deprecation warnings from the latest Class::MOP, but
     it still works with older versions too. (Dave Rolsky)
   - Fix a documentation typo (Jonathan Yu).
 
-0.08   2009-06-07 17:34:02 +0200
+0.08      2009-06-07 15:34:02Z
   - Run the role tests again Moose >= 0.56 only.
   - Add diagnostic for the Moose version to the role test.
 
-0.07   2009-05-27 22:27:46 +0200
+0.07      2009-05-27 20:27:46Z
   - Drop the useless Class::MOP::class_of call (Chris Prather).
   - Extend -also to make it accept coderefs and regexen (Kent Fredric).
 
-0.06   2009-05-20 15:14:36 +0200
+0.06      2009-05-20 13:14:36Z
   - Allow selection of explicit cleanee (Shawn M Moore).
 
-0.05   2009-05-01 12:44:25 +0200
+0.05      2009-05-01 10:44:25Z
   - Don't clean the 'meta' method for Moose roles, even if it's not
     included in get_method_list.
 
-0.04   2009-04-22 07:42:32 +0200
+0.04      2009-04-22 05:42:32Z
   - Make -also accept a plain string instead of only an array ref.
 
-0.03   2009-04-18 11:43:10 +0200
+0.03      2009-04-18 09:43:10Z
   - Changes dependeny of Class::MOP to 0.80, this is the first version
     with class_of.
 
-0.02   2009-04-17 14:21:46 +0200
+0.02      2009-04-17 12:21:46Z
   - Allow removing symbols other than imports using the -also option.
 
-0.01   2009-04-11 02:41:50 +0200
+0.01      2009-04-11 00:41:50Z
   - Initial release.
