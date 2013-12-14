@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.15      2013-12-14 17:47:21Z
   - update configure_requires checking in Makefile.PL, add CONTRIBUTING file
 
 0.14      2013-10-09 03:06:00Z

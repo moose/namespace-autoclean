@@ -24,7 +24,7 @@ of the current package's compile cycle. Functions called in the package itself
 will still be bound by their name, but they won't show up as methods on your
 class or instances.
 
-This module is very similar to [namespace::clean](http://search.cpan.org/perldoc?namespace::clean), except it
+This module is very similar to [namespace::clean](https://metacpan.org/pod/namespace::clean), except it
 will clean all imported functions, no matter if you imported them before or
 after you `use`d the pragma. It will also not touch anything that looks like a
 method, according to `Class::MOP::Class::get_method_list`.
@@ -79,11 +79,11 @@ function names to clean.
 
 # SEE ALSO
 
-[namespace::clean](http://search.cpan.org/perldoc?namespace::clean)
+[namespace::clean](https://metacpan.org/pod/namespace::clean)
 
-[Class::MOP](http://search.cpan.org/perldoc?Class::MOP)
+[Class::MOP](https://metacpan.org/pod/Class::MOP)
 
-[B::Hooks::EndOfScope](http://search.cpan.org/perldoc?B::Hooks::EndOfScope)
+[B::Hooks::EndOfScope](https://metacpan.org/pod/B::Hooks::EndOfScope)
 
 # AUTHOR
 
