@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - update configure_requires checking in Makefile.PL, add CONTRIBUTING file
 
 0.14      2013-10-09 03:06:00Z
   - bump dependency on B::Hooks::EndOfScope, to get the separation of
