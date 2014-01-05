@@ -141,11 +141,12 @@ sub _method_check {
         my %methods = map { $_ => 1 } $meta->get_method_list;
         $methods{meta} = 1
           if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        return sub { $methods{$_[0]} };
+        return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
     }
     else {
         require B;
         return sub {
+            return 1 if $_[0] =~ /^\(/;
             my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
             my $cv = B::svref_2object($coderef);
             $cv->isa('B::CV') or return;
