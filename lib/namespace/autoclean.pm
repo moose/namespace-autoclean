@@ -33,7 +33,7 @@ class or instances.
 This module is very similar to L<namespace::clean|namespace::clean>, except it
 will clean all imported functions, no matter if you imported them before or
 after you C<use>d the pragma. It will also not touch anything that looks like a
-method, according to C<Class::MOP::Class::get_method_list>.
+method.
 
 If you're writing an exporter and you want to clean up after yourself (and your
 peers), you can use the C<-cleanee> switch to specify what package to clean:
@@ -48,6 +48,15 @@ peers), you can use the C<-cleanee> switch to specify what package to clean:
         -cleanee => scalar(caller),
       );
   }
+
+=head1 WHAT IS AND ISN'T CLEANED
+
+C<namespace::autoclean> will leave behind anything that it deems a method.  For
+L<Moose> or L<Mouse> classes, this the based on the C<get_method_list> method
+on from the L<Class::MOP::Class|metaclass>.  For non-Moose classes, anything
+defined within the package will be identified as a method.  This should match
+Moose's definition of a method.  Additionally, the magic subs installed by
+L<overload> will not be cleaned.
 
 =head1 PARAMETERS
 
@@ -86,8 +95,6 @@ function names to clean.
 =head1 SEE ALSO
 
 L<namespace::clean>
-
-L<Class::MOP>
 
 L<B::Hooks::EndOfScope>
 
