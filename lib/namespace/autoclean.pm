@@ -151,14 +151,12 @@ sub _method_check {
         return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
     }
     else {
-        require B;
+        require Sub::Identify;
         return sub {
             return 1 if $_[0] =~ /^\(/;
             my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
-            my $cv = B::svref_2object($coderef);
-            $cv->isa('B::CV') or return;
-            $cv->GV->isa('B::SPECIAL') and return;
-            return $cv->GV->STASH->NAME eq $package;
+            my $code_stash = Sub::Identify::stash_name($coderef);
+            return $code_stash eq $package;
         };
     }
 }
