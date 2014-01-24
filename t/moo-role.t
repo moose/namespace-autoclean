@@ -1,12 +1,13 @@
 use strict;
 use warnings;
 use Test::More eval { require Moo }
-  ? (tests => 3)
+  ? (tests => 4)
   : (skip_all => 'Moo required for this test');
 
 {
   package Some::Role;
   use Moo::Role;
+  use namespace::autoclean;
   sub role_method { 42 }
 }
 
@@ -24,6 +25,11 @@ use Test::More eval { require Moo }
   BEGIN { with 'Some::Role' };
 }
 
+
+{
+  local $TODO = "Moo::Role's meta not seen as method";
+  can_ok('Some::Role', 'meta');
+}
 can_ok('Consuming::Class', 'role_method');
 {
   local $TODO = 'Moo::Role consumed in BEGIN is cleared from consumer';
