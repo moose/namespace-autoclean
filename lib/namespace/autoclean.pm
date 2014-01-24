@@ -92,6 +92,21 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+=head1 CAVEATS
+
+When used with L<Moo> classes, the heuristic used to check for methods won't
+work correctly for methods from roles consumed at compile time.
+
+  package My::Class;
+  use Moo;
+  use namespace::autoclean;
+
+  # Bad, any consumed methods will be cleaned
+  BEGIN { with 'Some::Role' }
+
+  # Good, methods from role will be maintained
+  with 'Some::Role';
+
 =head1 SEE ALSO
 
 L<namespace::clean>
