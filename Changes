@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Add -except to import options. This allows you to explicitly not clean a
+    sub. (Dave Rolsky)
 
 0.15      2013-12-14 17:47:21Z
   - update configure_requires checking in Makefile.PL, add CONTRIBUTING file

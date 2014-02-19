@@ -84,6 +84,17 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+=head2 -except => [ ITEM | REGEX | SUB, .. ]
+
+=head2 -except => ITEM
+
+=head2 -except => REGEX
+
+=head2 -except => SUB
+
+This takes exactly the same options as C<-also> except that anything this
+matches will I<not> be cleaned.
+
 =head1 SEE ALSO
 
 L<namespace::clean>
@@ -118,6 +129,12 @@ sub import {
         : ()
     );
 
+    my @except = map { $subcast->($_) } (
+        exists $args{-except}
+        ? (ref $args{-except} eq 'ARRAY' ? @{ $args{-except} } : $args{-except})
+        : ()
+    );
+
     on_scope_end {
         my $meta = Class::MOP::Class->initialize($cleanee);
         my %methods = map { ($_ => 1) } $meta->get_method_list;
@@ -131,7 +148,14 @@ sub import {
         }
 
         my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
-        namespace::clean->clean_subroutines($cleanee, keys %extra, grep { !$methods{$_} } @symbols);
+
+        my @remove;
+        for my $name (keys %extra, grep { !$methods{$_} } @symbols) {
+            next if first { $runtest->($_, $name) } @except;
+            push @remove, $name;
+        }
+
+        namespace::clean->clean_subroutines($cleanee, @remove);
     };
 }
 
