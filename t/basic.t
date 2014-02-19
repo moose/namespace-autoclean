@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More 0.88;
 
 {
     package Foo;
@@ -19,3 +19,5 @@ ok(!Foo->can('kooh'));
 ok( Foo->can('affe'));
 ok( Foo->can('tiger'));
 ok(!Foo->can('subname'));
+
+done_testing();
