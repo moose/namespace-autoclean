@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More 0.88;
 
 {
     package My::Cleaner;
@@ -26,3 +26,4 @@ ok( Foo->can('explode'), 'locally defined methods still work');
 ok(!Foo->can('boom'), 'imported functions removed');
 ok(!Foo->can('blast'), '-also methods removed');
 
+done_testing();

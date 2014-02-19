@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More 0.88;
 
 {
 
@@ -32,3 +32,4 @@ ok( !Bar->can('_hidden'),              '-also list with regex works' );
 ok( !Bar->can('xsubs_are_bad'),        '-also list with sub works' );
 ok( Bar->can('xsubs_with_y_are_good'), '-also list with sub doesnt overclean' );
 
+done_testing();

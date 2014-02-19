@@ -1,11 +1,10 @@
 use strict;
 use warnings;
-use Test::More;
+use Test::More 0.88;
 
 BEGIN {
     eval 'use Moose 0.56 ()';
     plan skip_all => 'requires Moose 0.56' if $@;
-    plan tests => 1;
 }
 
 BEGIN {
@@ -19,4 +18,6 @@ BEGIN {
 }
 
 # meta doesn't get cleaned, although it's not in get_method_list for roles
-can_ok('Foo', 'meta')
+can_ok('Foo', 'meta');
+
+done_testing;

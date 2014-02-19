@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More 0.88;
 my $have_sub_name;
 BEGIN {
     $have_sub_name = eval { require Sub::Name } ? 1 : 0;
@@ -27,3 +27,5 @@ SKIP: {
     ok( Foo->can('tiger'));
     ok(!Foo->can('subname'));
 }
+
+done_testing();
