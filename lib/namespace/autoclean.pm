@@ -92,6 +92,17 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+=head2 -except => [ ITEM | REGEX | SUB, .. ]
+
+=head2 -except => ITEM
+
+=head2 -except => REGEX
+
+=head2 -except => SUB
+
+This takes exactly the same options as C<-also> except that anything this
+matches will I<not> be cleaned.
+
 =head1 CAVEATS
 
 When used with L<Moo> classes, the heuristic used to check for methods won't
@@ -139,14 +150,21 @@ sub import {
         : ()
     );
 
+    my @except = map { $subcast->($_) } (
+        exists $args{-except}
+        ? (ref $args{-except} eq 'ARRAY' ? @{ $args{-except} } : $args{-except})
+        : ()
+    );
+
     on_scope_end {
         my $subs = namespace::clean->get_functions($cleanee);
         my $method_check = _method_check($cleanee);
 
         my @clean = grep {
           my $method = $_;
-          !$method_check->($method)
-          || first { $runtest->($_, $method) } @also;
+          ! first { $runtest->($_, $method) } @except
+            and ( !$method_check->($method)
+              or first { $runtest->($_, $method) } @also)
         } keys %$subs;
 
         namespace::clean->clean_subroutines($cleanee, @clean);
