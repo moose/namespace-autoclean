@@ -4,7 +4,6 @@ use warnings;
 package namespace::autoclean;
 # ABSTRACT: Keep imports out of your namespace
 
-use Class::MOP 0.80;
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
 use Package::Stash;
