@@ -172,19 +172,22 @@ sub _get_local_subs {
         $meta = Mouse::Util->class_of($cleanee);
     }
 
+    my %subs;
     if ($meta) {
-        my %methods = map { ($_ => 1) } $meta->get_method_list;
-        $methods{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        return %methods;
+        my %subs = map { ($_ => 1) } $meta->get_method_list;
+        $subs{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
     }
-    else {
-        my %subs;
-        for my $sub (keys %{ $stash->get_all_symbols('CODE') }) {
-            my ($pkg, undef) = get_code_info($cleanee->can($sub));
-            $subs{$sub} = 1 if $pkg && $pkg eq $cleanee;
-        }
-        return %subs;
+
+    # We need to go through this again for Moose/Mouse classes to get the
+    # overloading bits right. Moose 2.06+ has methods for examining
+    # overloading but we don't want to require that.
+    for my $sub (keys %{ $stash->get_all_symbols('CODE') }) {
+        my ($pkg, $name) = get_code_info($cleanee->can($sub));
+        $subs{$sub} = 1 if $pkg && $pkg eq $cleanee;
+        $subs{$sub} = 1 if $pkg eq 'overload' and $name eq 'nil';
     }
+
+    return %subs;
 }
 
 1;
