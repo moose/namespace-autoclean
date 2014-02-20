@@ -7,6 +7,8 @@ package namespace::autoclean;
 use Class::MOP 0.80;
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
+use Package::Stash;
+use Sub::Identify 0.04 qw( get_code_info );
 use namespace::clean 0.20;
 
 =head1 SYNOPSIS
@@ -136,27 +138,53 @@ sub import {
     );
 
     on_scope_end {
-        my $meta = Class::MOP::Class->initialize($cleanee);
-        my %methods = map { ($_ => 1) } $meta->get_method_list;
-        $methods{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        my %extra = ();
+        my $stash = Package::Stash->new($cleanee);
+        my %local_subs = _get_local_subs($cleanee, $stash);
 
-        for my $method (keys %methods) {
+        my %extra;
+        for my $method (keys %local_subs) {
             next if exists $extra{$_};
             next unless first { $runtest->($_, $method) } @also;
             $extra{ $method } = 1;
         }
 
-        my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
+        my @symbols = keys %{ $stash->get_all_symbols('CODE') };
 
         my @remove;
-        for my $name (keys %extra, grep { !$methods{$_} } @symbols) {
+        for my $name (keys %extra, grep { !$local_subs{$_} } @symbols) {
             next if first { $runtest->($_, $name) } @except;
             push @remove, $name;
         }
 
         namespace::clean->clean_subroutines($cleanee, @remove);
     };
+}
+
+sub _get_local_subs {
+    my $cleanee = shift;
+    my $stash   = shift;
+
+    my $meta;
+    if (UNIVERSAL::can('Class::MOP', 'can')  && 'Class::MOP'->can('class_of')) {
+        $meta = Class::MOP::class_of($cleanee);
+    }
+    elsif (UNIVERSAL::can('Mouse::Util', 'can') && 'Mouse::Util'->can('class_of')) {
+        $meta = Mouse::Util->class_of($cleanee);
+    }
+
+    if ($meta) {
+        my %methods = map { ($_ => 1) } $meta->get_method_list;
+        $methods{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
+        return %methods;
+    }
+    else {
+        my %subs;
+        for my $sub (keys %{ $stash->get_all_symbols('CODE') }) {
+            my ($pkg, undef) = get_code_info($cleanee->can($sub));
+            $subs{$sub} = 1 if $pkg && $pkg eq $cleanee;
+        }
+        return %subs;
+    }
 }
 
 1;
