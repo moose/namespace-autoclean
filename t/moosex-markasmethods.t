@@ -34,8 +34,8 @@ use Test::More eval { require Moose; require MooseX::MarkAsMethods; }
     sub stringify { "welp" }
 
     # additional methods generated outside Class::MOP/Moose can be marked, too
-    use constant foo => 'bar';
-    __PACKAGE__->meta->mark_as_method('foo');
+    use Scalar::Util qw(blessed);
+    BEGIN { __PACKAGE__->meta->mark_as_method('blessed') }
 }
 
 {
@@ -49,6 +49,6 @@ is "$foo", 'welp', "MarkAsMethods maintains overloads";
 
 my $baz = Baz->new;
 is "$baz", "welp", "MarkAsMethods maintains overloads in roles";
-can_ok 'Baz', 'foo';
+can_ok 'Baz', 'blessed';
 
 done_testing;
