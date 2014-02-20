@@ -2,10 +2,12 @@ use strict;
 use warnings;
 use Test::More tests => 3;
 
+sub main::iter { "welp" };
 {
     package Foo;
     use overload
-      'bool' => sub { 0 },
+      'bool' => sub(){1},
+      '<>' => \&main::iter,
       '0+' => 'numify',
       fallback => 1,
     ;
@@ -14,6 +16,7 @@ use Test::More tests => 3;
     sub new { bless {}, $_[0] }
 }
 
-is sprintf('%d', Foo->new), 219, 'method name overload';
-is sprintf('%s', Foo->new), 219, 'fallback overload';
-ok !Foo->new, 'subref overload';
+my $o = Foo->new;
+is sprintf('%d', $o), 219, 'method name overload';
+is sprintf('%s', $o), 219, 'fallback overload';
+is scalar <$o>, 'welp', 'subref overload';
