@@ -7,6 +7,8 @@ Revision history for {{$dist->name}}
     Moose class then we don't load Class::MOP. This was particularly
     problematic for Moo classes. Using namespace::autoclean with a Moo class
     "upgraded" it to be a Moose class. (Dave Rolsky)
+  - Using this module just broke overloading in a class. Reported by Chris
+    Weyl. (RT#50938)
 
 0.15      2013-12-14 17:47:21Z
   - update configure_requires checking in Makefile.PL, add CONTRIBUTING file
