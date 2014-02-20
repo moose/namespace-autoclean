@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More;
 
 sub main::iter { "welp" };
 {
@@ -20,3 +20,5 @@ my $o = Foo->new;
 is sprintf('%d', $o), 219, 'method name overload';
 is sprintf('%s', $o), 219, 'fallback overload';
 is scalar <$o>, 'welp', 'subref overload';
+
+done_testing;
