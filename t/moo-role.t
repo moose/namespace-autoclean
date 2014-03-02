@@ -34,10 +34,7 @@ BEGIN {
   can_ok('Some::Role', 'meta');
 }
 can_ok('Consuming::Class', 'role_method');
-{
-  local $TODO = 'Moo::Role consumed in BEGIN is cleared from consumer';
-  can_ok('Consuming::Class::InBegin', 'role_method');
-}
+can_ok('Consuming::Class::InBegin', 'role_method');
 is $INC{'Class/MOP/Class.pm'}, undef, 'Moose not loaded';
 
 done_testing;

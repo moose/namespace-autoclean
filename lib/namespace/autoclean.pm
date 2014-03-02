@@ -178,7 +178,12 @@ sub _method_check {
             my $cv = B::svref_2object($coderef);
             return unless $cv->isa('B::CV');
             return if $cv->GV->isa('B::SPECIAL');
-            return $cv->GV->STASH->NAME eq $package;
+            my $stash_name = $cv->GV->STASH->NAME;
+            return 1
+              if $stash_name eq $package;
+            return 1
+              if $INC{'Role/Tiny.pm'} && Role::Tiny->is_role($stash_name);
+            return 0;
         };
     }
 }
