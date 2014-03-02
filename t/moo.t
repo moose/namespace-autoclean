@@ -1,9 +1,11 @@
 use strict;
 use warnings;
+use Test::More;
 
-use Test::More eval { require Moo; require Class::MOP }
-  ? ()
-  : (skip_all => 'Moo and Class::MOP required for this test');
+BEGIN {
+  plan skip_all => 'Moo and Class::MOP required for this test'
+    unless eval { require Moo; require Class::MOP };
+}
 
 {
     package Class;
