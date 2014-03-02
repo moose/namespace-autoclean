@@ -1,8 +1,11 @@
 use strict;
 use warnings;
-use Test::More eval { require Moo }
-  ? (tests => 4)
-  : (skip_all => 'Moo required for this test');
+use Test::More;
+
+BEGIN {
+  plan skip_all => 'Moo required for this test'
+    unless eval { require Moo };
+}
 
 {
   package Some::Role;
@@ -36,3 +39,5 @@ can_ok('Consuming::Class', 'role_method');
   can_ok('Consuming::Class::InBegin', 'role_method');
 }
 is $INC{'Class/MOP/Class.pm'}, undef, 'Moose not loaded';
+
+done_testing;

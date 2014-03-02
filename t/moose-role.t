@@ -1,8 +1,11 @@
 use strict;
 use warnings;
-use Test::More eval { require Moose }
-  ? (tests => 2)
-  : (skip_all => 'Moose required for this test');
+use Test::More;
+
+BEGIN {
+  plan skip_all => 'Moose required for this test'
+    unless eval { require Moose };
+}
 
 {
   package Some::Role;
@@ -26,3 +29,5 @@ use Test::More eval { require Moose }
 
 can_ok('Consuming::Class', 'role_method');
 can_ok('Consuming::Class::InBegin', 'role_method');
+
+done_testing;

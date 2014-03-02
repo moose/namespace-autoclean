@@ -1,13 +1,15 @@
 use strict;
 use warnings;
+use Test::More 0.88;
 
 use namespace::autoclean ();
 # hack for running out of a checkout
 BEGIN { $namespace::autoclean::VERSION ||= 999 }
 
-use Test::More eval { require Moose; require MooseX::MarkAsMethods; }
-  ? ()
-  : (skip_all => "Moose and MooseX::MarkAsMethods required for this test: $@");
+BEGIN {
+  plan skip_all => "Moose and MooseX::MarkAsMethods required for this test"
+    unless eval { require Moose; require MooseX::MarkAsMethods; };
+}
 
 
 {
