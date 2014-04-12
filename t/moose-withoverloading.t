@@ -1,7 +1,14 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-use Test::Requires qw(Moose MooseX::Role::WithOverloading);
+{
+  package Temp1;
+  use Test::Requires qw(Moose);
+}
+{
+  package Temp2;
+  use Test::Requires qw(MooseX::Role::WithOverloading);
+}
 
 {
     package MyRole;

@@ -6,7 +6,14 @@ use namespace::autoclean ();
 # hack for running out of a checkout
 BEGIN { $namespace::autoclean::VERSION ||= 999 }
 
-use Test::Requires qw(Moose MooseX::MarkAsMethods);
+{
+  package Temp1;
+  use Test::Requires qw(Moose);
+}
+{
+  package Temp2;
+  use Test::Requires qw(MooseX::MarkAsMethods);
+}
 
 {
     package Foo;

@@ -1,7 +1,10 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-use Test::Requires qw(Moo Class::MOP);
+{
+  package Temp1;
+  use Test::Requires qw(Moo Class::MOP);
+}
 
 {
     package Class;

@@ -1,10 +1,13 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-use Test::Requires {
-  'Moose' => 0.56,
-  'Sub::Name' => 0,
-};
+{
+  package Temp1;
+  use Test::Requires {
+    'Moose' => 0.56,
+    'Sub::Name' => 0,
+  };
+}
 
 {
     package Class;
