@@ -1,11 +1,7 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-
-BEGIN {
-  plan skip_all => 'Moose required for this test'
-    unless eval { require Moose };
-}
+use Test::Requires qw(Moose);
 
 {
   package Some::Role;

@@ -1,12 +1,7 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-
-BEGIN {
-  plan skip_all => 'Moose and MooseX::Role::WithOverloading required for this test'
-    unless eval { require Moose; require MooseX::Role::WithOverloading; };
-}
-
+use Test::Requires qw(Moose MooseX::Role::WithOverloading);
 
 {
     package MyRole;

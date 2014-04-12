@@ -1,11 +1,10 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-
-BEGIN {
-    eval 'use Moose 0.56 ()';
-    plan skip_all => 'requires Moose 0.56' if $@;
-}
+use Test::Requires {
+  'Moose' => 0.56,
+  'Sub::Name' => 0,
+};
 
 {
     package Class;

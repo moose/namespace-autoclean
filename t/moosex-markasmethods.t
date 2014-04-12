@@ -6,11 +6,7 @@ use namespace::autoclean ();
 # hack for running out of a checkout
 BEGIN { $namespace::autoclean::VERSION ||= 999 }
 
-BEGIN {
-  plan skip_all => "Moose and MooseX::MarkAsMethods required for this test"
-    unless eval { require Moose; require MooseX::MarkAsMethods; };
-}
-
+use Test::Requires qw(Moose MooseX::MarkAsMethods);
 
 {
     package Foo;
