@@ -166,12 +166,17 @@ sub _method_check {
         return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
     }
     else {
+        my $does = $package->can('does') ? 'does'
+                 : $package->can('DOES') ? 'DOES'
+                 : undef;
         require Sub::Identify;
         return sub {
             return 1 if $_[0] =~ /^\(/;
             my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
             my $code_stash = Sub::Identify::stash_name($coderef);
-            return $code_stash eq $package;
+            return 1 if $code_stash eq $package;
+            return 1 if $does && $package->$does($code_stash);
+            return 0;
         };
     }
 }
