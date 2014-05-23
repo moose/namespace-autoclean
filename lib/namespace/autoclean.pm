@@ -4,7 +4,6 @@ use warnings;
 package namespace::autoclean;
 # ABSTRACT: Keep imports out of your namespace
 
-use Class::MOP 0.80;
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
 use namespace::clean 0.20;
@@ -34,7 +33,7 @@ class or instances.
 This module is very similar to L<namespace::clean|namespace::clean>, except it
 will clean all imported functions, no matter if you imported them before or
 after you C<use>d the pragma. It will also not touch anything that looks like a
-method, according to C<Class::MOP::Class::get_method_list>.
+method.
 
 If you're writing an exporter and you want to clean up after yourself (and your
 peers), you can use the C<-cleanee> switch to specify what package to clean:
@@ -49,6 +48,15 @@ peers), you can use the C<-cleanee> switch to specify what package to clean:
         -cleanee => scalar(caller),
       );
   }
+
+=head1 WHAT IS AND ISN'T CLEANED
+
+C<namespace::autoclean> will leave behind anything that it deems a method.  For
+L<Moose> or L<Mouse> classes, this the based on the C<get_method_list> method
+on from the L<Class::MOP::Class|metaclass>.  For non-Moose classes, anything
+defined within the package will be identified as a method.  This should match
+Moose's definition of a method.  Additionally, the magic subs installed by
+L<overload> will not be cleaned.
 
 =head1 PARAMETERS
 
@@ -84,11 +92,24 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+=head1 CAVEATS
+
+When used with L<Moo> classes, the heuristic used to check for methods won't
+work correctly for methods from roles consumed at compile time.
+
+  package My::Class;
+  use Moo;
+  use namespace::autoclean;
+
+  # Bad, any consumed methods will be cleaned
+  BEGIN { with 'Some::Role' }
+
+  # Good, methods from role will be maintained
+  with 'Some::Role';
+
 =head1 SEE ALSO
 
 L<namespace::clean>
-
-L<Class::MOP>
 
 L<B::Hooks::EndOfScope>
 
@@ -119,20 +140,45 @@ sub import {
     );
 
     on_scope_end {
-        my $meta = Class::MOP::Class->initialize($cleanee);
-        my %methods = map { ($_ => 1) } $meta->get_method_list;
-        $methods{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        my %extra = ();
+        my $subs = namespace::clean->get_functions($cleanee);
+        my $method_check = _method_check($cleanee);
 
-        for my $method (keys %methods) {
-            next if exists $extra{$_};
-            next unless first { $runtest->($_, $method) } @also;
-            $extra{ $method } = 1;
-        }
+        my @clean = grep {
+          my $method = $_;
+          !$method_check->($method)
+          || first { $runtest->($_, $method) } @also;
+        } keys %$subs;
 
-        my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
-        namespace::clean->clean_subroutines($cleanee, keys %extra, grep { !$methods{$_} } @symbols);
+        namespace::clean->clean_subroutines($cleanee, @clean);
     };
+}
+
+sub _method_check {
+    my $package = shift;
+    my $meta;
+    if (
+      (defined &Class::MOP::class_of and $meta = Class::MOP::class_of($package))
+      or (defined &Mouse::Util::class_of and $meta = Mouse::Util::class_of($package))
+    ) {
+        my %methods = map { $_ => 1 } $meta->get_method_list;
+        $methods{meta} = 1
+          if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
+        return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
+    }
+    else {
+        my $does = $package->can('does') ? 'does'
+                 : $package->can('DOES') ? 'DOES'
+                 : undef;
+        require Sub::Identify;
+        return sub {
+            return 1 if $_[0] =~ /^\(/;
+            my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
+            my $code_stash = Sub::Identify::stash_name($coderef);
+            return 1 if $code_stash eq $package;
+            return 1 if $does && $package->$does($code_stash);
+            return 0;
+        };
+    }
 }
 
 1;
