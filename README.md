@@ -27,7 +27,7 @@ class or instances.
 This module is very similar to [namespace::clean](https://metacpan.org/pod/namespace::clean), except it
 will clean all imported functions, no matter if you imported them before or
 after you `use`d the pragma. It will also not touch anything that looks like a
-method, according to `Class::MOP::Class::get_method_list`.
+method.
 
 If you're writing an exporter and you want to clean up after yourself (and your
 peers), you can use the `-cleanee` switch to specify what package to clean:
@@ -43,15 +43,24 @@ peers), you can use the `-cleanee` switch to specify what package to clean:
         );
     }
 
+# WHAT IS AND ISN'T CLEANED
+
+`namespace::autoclean` will leave behind anything that it deems a method.  For
+[Moose](https://metacpan.org/pod/Moose) or [Mouse](https://metacpan.org/pod/Mouse) classes, this the based on the `get_method_list` method
+on from the [Class::MOP::Class](https://metacpan.org/pod/metaclass).  For non-Moose classes, anything
+defined within the package will be identified as a method.  This should match
+Moose's definition of a method.  Additionally, the magic subs installed by
+[overload](https://metacpan.org/pod/overload) will not be cleaned.
+
 # PARAMETERS
 
-## \-also => \[ ITEM | REGEX | SUB, .. \]
+## -also => \[ ITEM | REGEX | SUB, .. \]
 
-## \-also => ITEM
+## -also => ITEM
 
-## \-also => REGEX
+## -also => REGEX
 
-## \-also => SUB
+## -also => SUB
 
 Sometimes you don't want to clean imports only, but also helper functions
 you're using in your methods. The `-also` switch can be used to declare a list
@@ -77,11 +86,24 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+# CAVEATS
+
+When used with [Moo](https://metacpan.org/pod/Moo) classes, the heuristic used to check for methods won't
+work correctly for methods from roles consumed at compile time.
+
+    package My::Class;
+    use Moo;
+    use namespace::autoclean;
+
+    # Bad, any consumed methods will be cleaned
+    BEGIN { with 'Some::Role' }
+
+    # Good, methods from role will be maintained
+    with 'Some::Role';
+
 # SEE ALSO
 
 [namespace::clean](https://metacpan.org/pod/namespace::clean)
-
-[Class::MOP](https://metacpan.org/pod/Class::MOP)
 
 [B::Hooks::EndOfScope](https://metacpan.org/pod/B::Hooks::EndOfScope)
 
@@ -95,6 +117,7 @@ Florian Ragwitz <rafl@debian.org>
 - Chris Prather <cprather@hdpublishing.com>
 - Dave Rolsky <autarch@urth.org>
 - Felix Ostmann <sadrak@sadrak-laptop.(none)>
+- Graham Knop <haarg@haarg.org>
 - Karen Etheridge <ether@cpan.org>
 - Kent Fredric <kentfredric@gmail.com>
 - Shawn M Moore <sartak@gmail.com>

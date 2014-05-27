@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.16      2014-05-27 04:50:22Z (TRIAL RELEASE)
   - Changed the code to no longer _require_ Class::MOP. If your class is not a
     Moose class then we don't load Class::MOP. This was particularly
     problematic for Moo classes. Using namespace::autoclean with a Moo class
