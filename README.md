@@ -86,6 +86,17 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+## -except => \[ ITEM | REGEX | SUB, .. \]
+
+## -except => ITEM
+
+## -except => REGEX
+
+## -except => SUB
+
+This takes exactly the same options as `-also` except that anything this
+matches will _not_ be cleaned.
+
 # CAVEATS
 
 When used with [Moo](https://metacpan.org/pod/Moo) classes, the heuristic used to check for methods won't

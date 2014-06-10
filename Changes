@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.17      2014-06-10 20:13:14Z
   - Add -except to import options. This allows you to explicitly not clean a
     sub. (Dave Rolsky)
 
