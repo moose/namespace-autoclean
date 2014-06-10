@@ -3,7 +3,7 @@ use warnings;
 package SubExporterModule;
 
 use Scalar::Util 'dualvar';
-use namespace::autoclean;
+use namespace::autoclean -except => 'import';
 
 use Sub::Exporter -setup => {
     exports => ['stuff'],

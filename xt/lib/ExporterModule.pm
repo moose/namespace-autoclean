@@ -3,7 +3,7 @@ use warnings;
 package ExporterModule;
 
 use Scalar::Util 'dualvar';
-use namespace::autoclean;
+use namespace::autoclean -except => 'import';
 
 use Exporter 'import';
 our @EXPORT_OK = qw(stuff);

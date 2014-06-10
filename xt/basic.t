@@ -6,8 +6,6 @@ use Module::Runtime 'require_module';
 
 use lib 'xt/lib';
 
-local $TODO = 'looks like some scope creep from ExporterModule up to Dirty?';
-
 foreach my $package (qw(Dirty SubDirty Clean SubClean ExporterModule SubExporterModule))
 {
     require_module($package);
