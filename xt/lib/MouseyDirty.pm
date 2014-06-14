@@ -3,10 +3,10 @@ use warnings;
 package MouseyDirty;
 
 use Mouse;
-use Scalar::Util 'refaddr';
+use File::Spec::Functions 'catdir';
 
 sub stuff {}
 
-use constant CAN => [ qw(stuff has with meta refaddr) ];
+use constant CAN => [ qw(stuff has with meta catdir) ];
 use constant CANT => [ ];
 1;
