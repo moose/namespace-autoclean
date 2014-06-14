@@ -52,7 +52,7 @@ peers), you can use the C<-cleanee> switch to specify what package to clean:
 =head1 WHAT IS AND ISN'T CLEANED
 
 C<namespace::autoclean> will leave behind anything that it deems a method.  For
-L<Moose> or L<Mouse> classes, this the based on the C<get_method_list> method
+L<Moose> classes, this the based on the C<get_method_list> method
 on from the L<Class::MOP::Class|metaclass>.  For non-Moose classes, anything
 defined within the package will be identified as a method.  This should match
 Moose's definition of a method.  Additionally, the magic subs installed by
@@ -173,10 +173,8 @@ sub import {
 
 sub _method_check {
     my $package = shift;
-    my $meta;
     if (
-      (defined &Class::MOP::class_of and $meta = Class::MOP::class_of($package))
-      or (defined &Mouse::Util::class_of and $meta = Mouse::Util::class_of($package))
+      (defined &Class::MOP::class_of and my $meta = Class::MOP::class_of($package))
     ) {
         my %methods = map { $_ => 1 } $meta->get_method_list;
         $methods{meta} = 1
