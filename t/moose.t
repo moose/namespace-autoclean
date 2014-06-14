@@ -5,13 +5,13 @@ use Test::More 0.88;
   package Temp1;
   use Test::Requires {
     'Moose' => 0.56,
-    'Sub::Name' => 0,
   };
 }
 
 {
     package Class;
-    use Sub::Name;
+    use Carp qw(cluck);
+    use File::Basename qw(fileparse);
     use Moose;
     use namespace::autoclean;
     sub bar { }
@@ -21,11 +21,13 @@ use Test::More 0.88;
 can_ok('Class', 'meta');
 can_ok('Class', 'bar');
 ok(Class->can('baz'), 'Class->baz method added via meta->add_method');
-ok(!Class->can('subname'), 'subname sub was cleaned from Class');
+ok(!Class->can('cluck'), 'cluck sub was cleaned from Class');
+ok(!Class->can('fileparse'), 'fileparse sub was cleaned from Class');
 
 {
     package Role;
-    use Sub::Name;
+    use Carp qw(cluck);
+    use File::Basename qw(fileparse);
     use Moose::Role;
     use namespace::autoclean;
     sub bar { }
@@ -36,6 +38,7 @@ ok(!Class->can('subname'), 'subname sub was cleaned from Class');
 can_ok('Role', 'meta');
 can_ok('Role', 'bar');
 ok(Role->can('baz'), 'Role->baz method added via meta->add_method');
-ok(!Class->can('subname'), 'subname sub was cleaned from Role');
+ok(!Role->can('cluck'), 'cluck sub was cleaned from Role');
+ok(!Role->can('fileparse'), 'fileparse sub was cleaned from Role');
 
 done_testing();
