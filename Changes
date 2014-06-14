@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.18      2014-06-14 20:12:59Z
   - better method detection for Mouse (github #4, Graham Knop)
 
 0.17      2014-06-10 20:13:14Z

@@ -46,7 +46,7 @@ peers), you can use the `-cleanee` switch to specify what package to clean:
 # WHAT IS AND ISN'T CLEANED
 
 `namespace::autoclean` will leave behind anything that it deems a method.  For
-[Moose](https://metacpan.org/pod/Moose) or [Mouse](https://metacpan.org/pod/Mouse) classes, this the based on the `get_method_list` method
+[Moose](https://metacpan.org/pod/Moose) classes, this the based on the `get_method_list` method
 on from the [Class::MOP::Class](https://metacpan.org/pod/metaclass).  For non-Moose classes, anything
 defined within the package will be identified as a method.  This should match
 Moose's definition of a method.  Additionally, the magic subs installed by
