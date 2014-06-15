@@ -15,7 +15,7 @@ use Test::More 0.88;
     use Mouse;
     use namespace::autoclean;
     sub bar { }
-    __PACKAGE__->meta->add_method(baz => sub { });
+    BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
 }
 
 can_ok('Class', 'meta');
@@ -31,7 +31,7 @@ ok(!Class->can('fileparse'), 'fileparse sub was cleaned from Class');
     use Mouse::Role;
     use namespace::autoclean;
     sub bar { }
-    __PACKAGE__->meta->add_method(baz => sub { });
+    BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
 }
 
 # meta doesn't get cleaned, although it's not in get_method_list for roles
