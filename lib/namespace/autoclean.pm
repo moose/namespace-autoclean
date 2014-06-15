@@ -3,6 +3,7 @@ use warnings;
 
 package namespace::autoclean;
 # ABSTRACT: Keep imports out of your namespace
+# KEYWORDS: namespaces clean dirty imports exports subroutines methods development
 
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
