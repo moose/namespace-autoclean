@@ -139,7 +139,7 @@ ok defined &Consuming::Class::InBegin::bar,
   'Consuming::Class::InBegin::bar created normally';
 {
   local $TODO = "consumed glob assigned subs not seen as method in 5.10+"
-    if $] >= 5.010;
+    if $] >= 5.010 && !$INC{'Mouse/PurePerl.pm'};
   ok defined &Consuming::Class::InBegin::guff,
     'Consuming::Class::InBegin::guff added via glob assignment';
 }
