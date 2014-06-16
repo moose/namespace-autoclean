@@ -22,6 +22,7 @@ BEGIN {
     BEGIN { *welp = $welp }
     BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
     BEGIN { __PACKAGE__->meta->add_method(buzz => $buzz); }
+    use constant CAT => 'kitten';
 }
 
 {
@@ -48,6 +49,8 @@ ok !defined &Some::Class::cluck,
   'Some::Class::cluck imported sub was cleaned';
 ok !defined &Some::Class::fileparse,
   'Some::Class::fileparse imported sub was cleaned';
+ok defined &Some::Class::CAT,
+  'Some::Class::CAT constant';
 
 BEGIN {
     package Some::Role;
@@ -60,6 +63,7 @@ BEGIN {
     BEGIN { *welp = $welp }
     BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
     BEGIN { __PACKAGE__->meta->add_method(buzz => $buzz); }
+    use constant CAT => 'kitten';
 }
 
 {
@@ -85,6 +89,8 @@ ok !defined &Some::Role::cluck,
   'Some::Role::cluck imported sub was cleaned';
 ok !defined &Some::Role::fileparse,
   'Some::Role::fileparse imported sub was cleaned';
+ok defined &Some::Role::CAT,
+  'Some::Role::CAT constant';
 
 BEGIN {
   package Consuming::Class;
@@ -113,6 +119,8 @@ ok !defined &Consuming::Class::cluck,
   'Consuming::Class::cluck imported sub was cleaned';
 ok !defined &Consuming::Class::fileparse,
   'Consuming::Class::fileparse imported sub was cleaned';
+ok defined &Consuming::Class::CAT,
+  'Consuming::Class::CAT constant';
 
 BEGIN {
   package Consuming::Class::InBegin;
@@ -148,5 +156,7 @@ ok !defined &Consuming::Class::InBegin::cluck,
   'Consuming::Class::InBegin::cluck imported sub was cleaned';
 ok !defined &Consuming::Class::InBegin::fileparse,
   'Consuming::Class::InBegin::fileparse imported sub was cleaned';
+ok defined &Consuming::Class::InBegin::CAT,
+  'Consuming::Class::InBegin::CAT constant';
 
 done_testing;
