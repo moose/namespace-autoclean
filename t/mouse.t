@@ -26,6 +26,8 @@ ok(!Class->can('cluck'), 'cluck sub was cleaned from Class');
 ok(!Class->can('fileparse'), 'fileparse sub was cleaned from Class');
 ok(Class->can('CAT'), 'constant sub was not cleaned');
 
+skip 'meta is not available in older perls?!', 6 if $] < 5.010;
+
 {
     package Role;
     use Carp qw(cluck);
