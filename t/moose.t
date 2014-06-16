@@ -16,6 +16,7 @@ use Test::More 0.88;
     use namespace::autoclean;
     sub bar { }
     __PACKAGE__->meta->add_method(baz => sub { });
+    use constant CAT => 'kitten';
 }
 
 can_ok('Class', 'meta');
@@ -23,6 +24,7 @@ can_ok('Class', 'bar');
 ok(Class->can('baz'), 'Class->baz method added via meta->add_method');
 ok(!Class->can('cluck'), 'cluck sub was cleaned from Class');
 ok(!Class->can('fileparse'), 'fileparse sub was cleaned from Class');
+ok(Class->can('CAT'), 'constant sub was not cleaned');
 
 {
     package Role;
@@ -32,6 +34,7 @@ ok(!Class->can('fileparse'), 'fileparse sub was cleaned from Class');
     use namespace::autoclean;
     sub bar { }
     __PACKAGE__->meta->add_method(baz => sub { });
+    use constant CAT => 'kitten';
 }
 
 # meta doesn't get cleaned, although it's not in get_method_list for roles
@@ -40,5 +43,6 @@ can_ok('Role', 'bar');
 ok(Role->can('baz'), 'Role->baz method added via meta->add_method');
 ok(!Role->can('cluck'), 'cluck sub was cleaned from Role');
 ok(!Role->can('fileparse'), 'fileparse sub was cleaned from Role');
+ok(Role->can('CAT'), 'constant sub was not cleaned');
 
 done_testing();

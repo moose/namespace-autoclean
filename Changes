@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fixed cleaning of constants in perls older than 5.010
 
 0.18      2014-06-14 20:12:59Z
   - better method detection for Mouse (github #4, Graham Knop)
