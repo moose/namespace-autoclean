@@ -2,5 +2,6 @@
 /.build/
 *.bs
 /.latest
+/cover_db/
 /namespace-autoclean-*/
 /namespace-autoclean-*.tar.gz
