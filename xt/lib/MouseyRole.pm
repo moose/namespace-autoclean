@@ -8,6 +8,7 @@ use namespace::autoclean;
 
 sub role_stuff {}
 
-use constant CAN => [ qw(role_stuff meta) ];
+# can't test 'meta', it's unreliable with Mouse
+use constant CAN => [ qw(role_stuff) ];
 use constant CANT => [ qw(has with devnull)];
 1;
