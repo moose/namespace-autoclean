@@ -23,6 +23,8 @@ BEGIN {
     BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
     BEGIN { __PACKAGE__->meta->add_method(buzz => $buzz); }
     use constant CAT => 'kitten';
+    BEGIN { our $DOG = 'puppy' }
+    use constant DOG => 'puppy';
 }
 
 {
@@ -51,6 +53,8 @@ ok !defined &Some::Class::fileparse,
   'Some::Class::fileparse imported sub was cleaned';
 ok defined &Some::Class::CAT,
   'Some::Class::CAT constant';
+ok defined &Some::Class::DOG,
+  'Some::Class::DOG constant with other glob entry';
 
 BEGIN {
     package Some::Role;
@@ -64,6 +68,8 @@ BEGIN {
     BEGIN { __PACKAGE__->meta->add_method(baz => sub { }); }
     BEGIN { __PACKAGE__->meta->add_method(buzz => $buzz); }
     use constant CAT => 'kitten';
+    BEGIN { our $DOG = 'puppy' }
+    use constant DOG => 'puppy';
 }
 
 {
@@ -91,6 +97,8 @@ ok !defined &Some::Role::fileparse,
   'Some::Role::fileparse imported sub was cleaned';
 ok defined &Some::Role::CAT,
   'Some::Role::CAT constant';
+ok defined &Some::Role::DOG,
+  'Some::Role::DOG constant with other glob entry';
 
 BEGIN {
   package Consuming::Class;
@@ -121,6 +129,8 @@ ok !defined &Consuming::Class::fileparse,
   'Consuming::Class::fileparse imported sub was cleaned';
 ok defined &Consuming::Class::CAT,
   'Consuming::Class::CAT constant';
+ok defined &Consuming::Class::DOG,
+  'Consuming::Class::DOG constant with other glob entry';
 
 BEGIN {
   package Consuming::Class::InBegin;
@@ -158,5 +168,11 @@ ok !defined &Consuming::Class::InBegin::fileparse,
   'Consuming::Class::InBegin::fileparse imported sub was cleaned';
 ok defined &Consuming::Class::InBegin::CAT,
   'Consuming::Class::InBegin::CAT constant';
+{
+  local $TODO = "constant with other glob entries not consumed properly"
+    if !$INC{'Mouse/PurePerl.pm'};
+  ok defined &Consuming::Class::InBegin::DOG,
+    'Consuming::Class::InBegin::DOG constant with other glob entry';
+}
 
 done_testing;
