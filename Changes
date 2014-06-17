@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.19      2014-06-17 04:57:07Z
   - more comprehensive testing with Moo/Mouse/Moose
   - fixed cleaning of constants
 
