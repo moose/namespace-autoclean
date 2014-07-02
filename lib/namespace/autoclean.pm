@@ -121,9 +121,16 @@ work correctly for methods from roles consumed at compile time.
 
 =head1 SEE ALSO
 
-L<namespace::clean>
-
-L<B::Hooks::EndOfScope>
+=for :list
+* L<namespace::clean>
+* L<B::Hooks::EndOfScope>
+* L<namespace::sweep>
+* L<Sub::Exporter::ForMethods>
+* L<Sub::Name>
+* L<Sub::Install>
+* L<MooseX::MarkAsMethods>
+* L<Test::CleanNamespaces>
+* L<Dist::Zilla::Plugin::Test::CleanNamespaces>
 
 =cut
 
