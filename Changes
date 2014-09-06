@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Moose earlier than 2.0300 had a broken ->does method, which called methods
+    on a class's meta when it might not be initialized (RT#98424)
 
 0.19      2014-06-17 04:57:07Z
   - more comprehensive testing with Moo/Mouse/Moose

@@ -199,7 +199,7 @@ sub _method_check {
             my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
             my $code_stash = Sub::Identify::stash_name($coderef);
             return 1 if $code_stash eq $package;
-            return 1 if $does && $package->$does($code_stash);
+            return 1 if $does && eval { $package->$does($code_stash) };
             return 1 if $code_stash eq 'constant';
             return 0;
         };
