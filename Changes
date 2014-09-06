@@ -11,14 +11,14 @@ Revision history for {{$dist->name}}
 
 0.17      2014-06-10 20:13:14Z
   - Add -except to import options. This allows you to explicitly not clean a
-    sub. (Dave Rolsky)
+    sub. (github #3, Dave Rolsky)
 
 0.16      2014-05-27 04:50:22Z (TRIAL RELEASE)
   - Changed the code to no longer _require_ Class::MOP. If your class is not a
     Moose class then we don't load Class::MOP. This was particularly
     problematic for Moo classes. Using namespace::autoclean with a Moo class
     "upgraded" it to be a Moose class.
-  - Using this module just broke overloading in a class. Reported by Chris
+  - Using this module broke overloading in a class. Reported by Chris
     Weyl. (RT#50938)
 
 0.15      2013-12-14 17:47:21Z
