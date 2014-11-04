@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.22      2014-11-04 06:19:54Z
   - fix an erroneous change in 0.21
 
 0.21      2014-11-04 05:24:36Z
