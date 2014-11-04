@@ -25,6 +25,7 @@ use Test::More 0.88;
 
     sub as_string { shift->message }
 }
+
 {
     package MyClass;
     use Moose;
@@ -33,7 +34,20 @@ use Test::More 0.88;
     with 'MyRole';
 }
 
-my $i = MyClass->new( message => 'foobar' );
-is "$i", 'foobar', 'overload from MooseX::Role::WithOverloading maintained';
+my $mc = MyClass->new( message => 'foobar' );
+is "$mc", 'foobar', 'overload from MooseX::Role::WithOverloading maintained';
+
+{
+    package MyClass2;
+    use Moose;
+    use namespace::autoclean;
+
+    use overload q{""} => 'as_string';
+
+    sub as_string { '42' }
+}
+
+my $mc2 = MyClass2->new( message => 'foobar' );
+is "$mc2", '42', 'overload in class is not cleaned';
 
 done_testing;

@@ -186,9 +186,7 @@ sub _method_check {
         my %methods = map { $_ => 1 } $meta->get_method_list;
         $methods{meta} = 1
           if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        return Moose->VERSION > 2.1300
-            ? sub { $methods{$_[0]} }
-            : sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
+        return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
     }
     else {
         my $does = $package->can('does') ? 'does'
