@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - drop testing of MooseX::MarkAsMethods, now that Moose 2.1400 has better
+    overload handling
 
 0.20      2014-09-06 23:04:12Z
   - Moose earlier than 2.0300 had a broken ->does method, which called methods
