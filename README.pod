@@ -6,6 +6,10 @@
 
 namespace::autoclean - Keep imports out of your namespace
 
+=head1 VERSION
+
+version 0.21
+
 =head1 SYNOPSIS
 
     package Foo;
@@ -146,10 +150,6 @@ L<Sub::Install>
 
 =item *
 
-L<MooseX::MarkAsMethods>
-
-=item *
-
 L<Test::CleanNamespaces>
 
 =item *
@@ -162,19 +162,26 @@ L<Dist::Zilla::Plugin::Test::CleanNamespaces>
 
 Florian Ragwitz <rafl@debian.org>
 
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Florian Ragwitz.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =head1 CONTRIBUTORS
 
-=for stopwords Graham Knop Karen Etheridge Dave Rolsky Kent Fredric Tomas Doran Shawn M Moore Felix Ostmann Chris Prather Andrew Rodland
+=for stopwords Karen Etheridge Graham Knop Dave Rolsky Kent Fredric Tomas Doran Shawn M Moore Felix Ostmann Chris Prather Andrew Rodland
 
 =over 4
 
 =item *
 
-Graham Knop <haarg@haarg.org>
+Karen Etheridge <ether@cpan.org>
 
 =item *
 
-Karen Etheridge <ether@cpan.org>
+Graham Knop <haarg@haarg.org>
 
 =item *
 
@@ -205,12 +212,5 @@ Chris Prather <cprather@hdpublishing.com>
 Andrew Rodland <andrew@hbslabs.com>
 
 =back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2009 by Florian Ragwitz.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
 
 =cut
