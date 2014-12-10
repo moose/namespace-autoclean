@@ -29,7 +29,7 @@ BEGIN {
 
 {
   local $TODO = "meta created by Mouse not seen as method in 5.8 or without XS"
-    if $] < 5.010 || $ENV{MOUSE_PUREPERL};
+    if $] < 5.010 || $ENV{MOUSE_PUREPERL} || Mouse::Util::MOUSE_XS;
   ok defined &Some::Class::meta,
     'Some::Class::meta created by Mouse';
 }
@@ -43,7 +43,7 @@ ok defined &Some::Class::baz,
   'Some::Class::baz added via meta->add_method';
 {
   local $TODO = "foreign methods via add_methods don't work in 5.8 or without XS"
-    if $] < 5.010 || $ENV{MOUSE_PUREPERL};
+    if $] < 5.010 || $ENV{MOUSE_PUREPERL} || Mouse::Util::MOUSE_XS;
   ok defined &Some::Class::buzz,
     'Some::Class::buzz foreign added via meta->add_method';
 }
@@ -74,7 +74,7 @@ BEGIN {
 
 {
   local $TODO = "meta created by Mouse not seen as method in 5.8 or without XS"
-    if $] < 5.010 || $ENV{MOUSE_PUREPERL};
+    if $] < 5.010 || $ENV{MOUSE_PUREPERL} || Mouse::Util::MOUSE_XS;
   ok defined &Some::Role::meta,
     'Some::Role::meta created by Mouse::Role';
 }
@@ -109,7 +109,7 @@ BEGIN {
 
 {
   local $TODO = "meta created by Mouse not seen as method in 5.8 or without XS"
-    if $] < 5.010 || $ENV{MOUSE_PUREPERL};
+    if $] < 5.010 || $ENV{MOUSE_PUREPERL} || Mouse::Util::MOUSE_XS;
   ok defined &Consuming::Class::meta,
     'Consuming::Class::meta created by Mouse';
 }
@@ -141,7 +141,7 @@ BEGIN {
 
 {
   local $TODO = "meta created by Mouse not seen as method in 5.8 or without XS"
-    if $] < 5.010 || $ENV{MOUSE_PUREPERL};
+    if $] < 5.010 || $ENV{MOUSE_PUREPERL} || Mouse::Util::MOUSE_XS;
   ok defined &Consuming::Class::InBegin::meta,
     'Consuming::Class::InBegin::meta created by Mouse';
 }
