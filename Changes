@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - be more lenient in optional Mouse tests to handle edge cases in older and
+    pure perl versions
 
 0.22      2014-11-04 06:19:54Z
   - fix an erroneous change in 0.21
