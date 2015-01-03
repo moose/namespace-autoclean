@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - re-release to fix problematic $VERSION declaration (RT#101095)
 
 0.23      2014-12-27 04:07:03Z
   - be more lenient in optional Mouse tests to handle edge cases in older and
