@@ -1,12 +1,10 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-{
-  package Temp1;
-  use Test::Requires {
-    'Moo' => 0,
-  };
-}
+use constant WITH_MOOSE => !!$INC{'Moose.pm'};
+use Test::Requires {
+  'Moo' => '()',
+};
 
 my $buzz; BEGIN { $buzz = sub {}; }
 my $welp; BEGIN { $welp = sub {}; }
@@ -118,6 +116,8 @@ ok defined &Consuming::Class::InBegin::CAT,
 ok defined &Consuming::Class::InBegin::DOG,
   'Consuming::Class::InBegin::DOG constant with other glob entry';
 
-is $INC{'Class/MOP/Class.pm'}, undef, 'Class::MOP not loaded';
+if (!WITH_MOOSE) {
+  is $INC{'Class/MOP/Class.pm'}, undef, 'Class::MOP not loaded';
+}
 
 done_testing;
