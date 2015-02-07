@@ -1,0 +1,11 @@
+
+https://github.com/moose/namespace-autoclean/pull/7
+    20:47 <@haarg> ether: not sure what we want to do yet about that ns::ac pr i sent.  possibly it can be fixed in the Moo side, by better informing Moose.
+    20:47 <@haarg> hard coding Moo support would also work, although i've wanted to avoid tha
+    20:47 <@haarg> t
+
+failure with Mouse in 5.8.9:
+http://www.cpantesters.org/cpan/report/46c06ec2-aa7d-11e4-9fb3-15f77ff2ffb4
+
+old issues, can be closed:
+https://github.com/bobtfish/namespace-autoclean/pull/4
