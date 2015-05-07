@@ -5,6 +5,8 @@ package namespace::autoclean;
 # ABSTRACT: Keep imports out of your namespace
 # KEYWORDS: namespaces clean dirty imports exports subroutines methods development
 
+our $VERSION = '0.25';
+
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
 use namespace::clean 0.20;
