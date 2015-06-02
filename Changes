@@ -1,6 +1,8 @@
 Revision history for namespace-autoclean
 
 {{$NEXT}}
+  - load Moo::Role earlier in a test, to make a potential misconfiguration
+    more visible
 
 0.24      2015-01-03 20:44:36Z
   - re-release to fix problematic $VERSION declaration (RT#101095)
