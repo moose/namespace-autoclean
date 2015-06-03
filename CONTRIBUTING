@@ -11,6 +11,9 @@ follow any of the steps in this document to submit a patch or bug report;
 these are just recommendations, intended to help you (and help us help you
 faster).
 
+This distribution has a TODO file in the repository; you may want to check
+there to see if your issue or patch idea is mentioned.
+
 The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
 This means than many of the usual files you might expect are not in the
 repository, but are generated at release time (e.g. Makefile.PL).
@@ -77,21 +80,24 @@ You can submit code changes by forking the repository, pushing your code
 changes to your clone, and then submitting a pull request. Detailed
 instructions for doing that is available here:
 
-https://help.github.com/
 https://help.github.com/articles/creating-a-pull-request
 
 If you have found a bug, but do not have an accompanying patch to fix it, you
 can submit an issue report here:
 https://rt.cpan.org/Public/Dist/Display.html?Name=namespace-autoclean
 or via bug-namespace-autoclean@rt.cpan.org.
-This is a good place to send your questions about the usage of this distribution.
+
+There is also a mailing list available for users of this distribution, at
+http://lists.perl.org/list/moose.html.
+There is also an irc channel available for users of this distribution, at
+irc://irc.perl.org/#moose.
 
 If you send me a patch or pull request, your name and email address will be
 included in the documentation as a contributor (using the attribution on the
 commit or patch), unless you specifically request for it not to be.  If you
-wish to be listed under a different name, you should submit a pull request to
-the .mailmap file to contain the correct mapping.
+wish to be listed under a different name or address, you should submit a pull
+request to the .mailmap file to contain the correct mapping.
 
 
 This file was generated via Dist::Zilla::Plugin::GenerateFile::ShareDir 0.005 from a
-template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.078.
+template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.094.
