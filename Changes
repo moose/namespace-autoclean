@@ -1,5 +1,7 @@
 Revision history for namespace-autoclean
 
+{{$NEXT}}
+
 0.25      2015-06-03 01:09:06Z
   - load Moo::Role earlier in a test, to make a potential misconfiguration
     more visible
