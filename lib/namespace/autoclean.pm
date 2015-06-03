@@ -201,6 +201,7 @@ sub _method_check {
             my $code_stash = Sub::Identify::stash_name($coderef);
             return 1 if $code_stash eq $package;
             return 1 if $code_stash eq 'constant';
+            # TODO: consider if we really need this eval
             return 1 if $does && eval { $package->$does($code_stash) };
             return 0;
         };
