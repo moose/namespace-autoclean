@@ -8,7 +8,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.25
+version 0.26
 
 =head1 SYNOPSIS
 
@@ -119,6 +119,9 @@ work correctly for methods from roles consumed at compile time.
 
   # Good, methods from role will be maintained
   with 'Some::Role';
+
+Additionally, method detection may not work properly in L<Mouse> classes in
+perls earlier than 5.10.
 
 =head1 SEE ALSO
 
