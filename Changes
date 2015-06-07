@@ -1,5 +1,7 @@
 Revision history for namespace-autoclean
 
+{{$NEXT}}
+
 0.26      2015-06-07 02:53:17Z
   - mark all Mouse tests as TODO below perl 5.010, to enable installation
     despite apparent instability issues (see RT#101825)
