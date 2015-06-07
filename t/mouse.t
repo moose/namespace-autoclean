@@ -11,6 +11,9 @@ use Test::More 0.88;
 my $buzz; BEGIN { $buzz = sub {}; }
 my $welp; BEGIN { $welp = sub {}; }
 
+local $TODO = 'Mouse does not seem to be stable in 5.8.x anymore :/'
+    if $] < 5.010;
+
 BEGIN {
     package Some::Class;
     use Carp qw(cluck);

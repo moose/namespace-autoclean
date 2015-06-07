@@ -1,6 +1,8 @@
 Revision history for namespace-autoclean
 
 {{$NEXT}}
+  - mark all Mouse tests as TODO below perl 5.010, to enable installation
+    despite apparent instability issues (see RT#101825)
 
 0.25      2015-06-03 01:09:06Z
   - load Moo::Role earlier in a test, to make a potential misconfiguration

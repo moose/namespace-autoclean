@@ -121,6 +121,9 @@ work correctly for methods from roles consumed at compile time.
   # Good, methods from role will be maintained
   with 'Some::Role';
 
+Additionally, method detection may not work properly in L<Mouse> classes in
+perls earlier than 5.10.
+
 =head1 SEE ALSO
 
 =for :list
