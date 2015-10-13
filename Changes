@@ -1,6 +1,7 @@
 Revision history for namespace-autoclean
 
 {{$NEXT}}
+  - skip failing tests with old Moo (RT#107643)
 
 0.27      2015-09-09 02:29:20Z
   - package with only ExtUtils::MakeMaker to ease installation on perl 5.6
