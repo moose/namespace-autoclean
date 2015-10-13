@@ -8,6 +8,10 @@ use constant WITH_MOOSE => !!$INC{'Moose.pm'};
 # blech! but Test::Requires does a stringy eval, so this works...
 use Test::Requires { 'Moo' => '()', 'Moo::Role' => '()' };
 
+plan skip_all => 'this combination of Moo/Sub::Util is unstable'
+    if Moo->VERSION >= 2 and not eval { Moo->VERSION('2.000002') }
+        and $INC{"Sub/Util.pm"} and not defined &Sub::Util::set_subname;
+
 my $buzz; BEGIN { $buzz = sub {}; }
 my $welp; BEGIN { $welp = sub {}; }
 
