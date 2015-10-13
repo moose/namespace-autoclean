@@ -3,5 +3,8 @@ use warnings;
 use Test::Requires {
   'Moose' => '()',
 };
-do 't/moo.t';
+
+use FindBin qw($Bin);
+
+do "$Bin/moo.t";
 die $@ if $@;
