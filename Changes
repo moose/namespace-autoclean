@@ -1,5 +1,7 @@
 Revision history for namespace-autoclean
 
+{{$NEXT}}
+
 0.28      2015-10-13 01:25:26Z
   - skip failing tests with old Moo or when Sub::Util is broken (RT#107643)
 
