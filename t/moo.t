@@ -21,6 +21,7 @@ BEGIN {
     use File::Basename qw(fileparse);
     use Moo;
     use namespace::autoclean;
+    has attr1 => ( is => 'ro' );
     sub bar { }
     BEGIN { *guff = sub {} }
     BEGIN { *welp = $welp }
@@ -47,6 +48,10 @@ ok defined &Some::Class::CAT,
   'Some::Class::CAT constant';
 ok defined &Some::Class::DOG,
   'Some::Class::DOG constant with other glob entry';
+ok defined &Some::Class::attr1,
+  'Some::Class::attr1 added via has';
+ok defined &Some::Class::new,
+  'Some::Class::new added by Moo';
 
 BEGIN {
     package Some::Role;
@@ -136,6 +141,18 @@ ok defined &Consuming::Class::InBegin::CAT,
   'Consuming::Class::InBegin::CAT constant';
 ok defined &Consuming::Class::InBegin::DOG,
   'Consuming::Class::InBegin::DOG constant with other glob entry';
+
+BEGIN {
+  package Class::Constructor::InBegin;
+  use Moo;
+  use namespace::autoclean;
+  BEGIN { has attr1 => ( is => 'ro' ) };
+}
+
+ok defined &Class::Constructor::InBegin::attr1,
+  'Class::Constructor::InBegin::attr1 created by has in BEGIN';
+ok defined &Class::Constructor::InBegin::new,
+  'Class::Constructor::InBegin::new created via has in BEGIN';
 
 if (!WITH_MOOSE) {
   is $INC{'Class/MOP/Class.pm'}, undef, 'Class::MOP not loaded';
