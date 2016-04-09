@@ -147,12 +147,30 @@ BEGIN {
   use Moo;
   use namespace::autoclean;
   BEGIN { has attr1 => ( is => 'ro' ) };
+  sub foo { 1 }
 }
 
 ok defined &Class::Constructor::InBegin::attr1,
   'Class::Constructor::InBegin::attr1 created by has in BEGIN';
 ok defined &Class::Constructor::InBegin::new,
   'Class::Constructor::InBegin::new created via has in BEGIN';
+
+BEGIN {
+  package Class::Modified::InBegin;
+  use Moo;
+  use namespace::autoclean;
+  sub bar { 1 }
+  BEGIN {
+    extends 'Class::Constructor::InBegin';
+    around foo => sub { 1 };
+    around bar => sub { 1 };
+  }
+}
+
+ok defined &Class::Modified::InBegin::foo,
+  'Class::Modified::InBegin::foo from parent modified in BEGIN';
+ok defined &Class::Modified::InBegin::bar,
+  'Class::Modified::InBegin::bar created in class modified in BEGIN';
 
 if (!WITH_MOOSE) {
   is $INC{'Class/MOP/Class.pm'}, undef, 'Class::MOP not loaded';
