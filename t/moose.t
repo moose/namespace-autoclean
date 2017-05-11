@@ -3,7 +3,7 @@ use warnings;
 use Test::More 0.88;
 {
   package Temp1;
-  use Test::Requires {
+  use Test::Needs {
     'Moose' => 0.56,
   };
 }

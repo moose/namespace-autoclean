@@ -3,11 +3,11 @@ use warnings;
 use Test::More 0.88;
 {
   package Temp1;
-  use Test::Requires qw(Moose);
+  use Test::Needs qw(Moose);
 }
 {
   package Temp2;
-  use Test::Requires qw(MooseX::Role::WithOverloading);
+  use Test::Needs qw(MooseX::Role::WithOverloading);
 }
 
 {

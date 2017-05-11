@@ -3,9 +3,7 @@ use warnings;
 use Test::More 0.88;
 {
   package Temp1;
-  use Test::Requires {
-    'Mouse' => 0,
-  };
+  use Test::Needs 'Mouse';
 }
 
 my $buzz; BEGIN { $buzz = sub {}; }
