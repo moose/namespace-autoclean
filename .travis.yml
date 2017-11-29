@@ -15,5 +15,10 @@ perl:
   - "5.12"
   - "5.10"
   - "5.8"
+env:
+  global:
+    - AUTHOR_TESTING=1
+    - AUTOMATED_TESTING=1
+    - RELEASE_TESTING=0
 before_install:
   - eval $(curl https://travis-perl.github.io/init) --auto
