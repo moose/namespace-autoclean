@@ -18,6 +18,9 @@ perl:
   - "5.12"
   - "5.10"
   - "5.8"
+matrix:
+  allow_failures:
+    - perl: "5.8"
 env:
   global:
     - AUTHOR_TESTING=1
