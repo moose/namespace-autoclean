@@ -1,12 +1,10 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-{
-  package Temp1;
-  use Test::Needs {
+
+use Test::Needs {
     'Moose' => 0.56,
-  };
-}
+};
 
 my $buzz; BEGIN { $buzz = sub {}; }
 my $welp; BEGIN { $welp = sub {}; }

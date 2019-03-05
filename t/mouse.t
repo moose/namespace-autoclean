@@ -1,10 +1,8 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-{
-  package Temp1;
-  use Test::Needs 'Mouse';
-}
+
+use Test::Needs 'Mouse';
 
 my $buzz; BEGIN { $buzz = sub {}; }
 my $welp; BEGIN { $welp = sub {}; }
