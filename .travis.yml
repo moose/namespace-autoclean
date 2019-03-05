@@ -21,6 +21,7 @@ perl:
 matrix:
   allow_failures:
     - perl: "5.8"
+  fast_finish: 1
 env:
   global:
     - AUTHOR_TESTING=1
