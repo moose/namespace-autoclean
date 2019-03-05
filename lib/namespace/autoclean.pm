@@ -156,13 +156,13 @@ sub import {
 
     my $cleanee = exists $args{-cleanee} ? $args{-cleanee} : scalar caller;
 
-    my @also = map { $subcast->($_) } (
+    my @also = map $subcast->($_), (
         exists $args{-also}
         ? (ref $args{-also} eq 'ARRAY' ? @{ $args{-also} } : $args{-also})
         : ()
     );
 
-    my @except = map { $subcast->($_) } (
+    my @except = map $subcast->($_), (
         exists $args{-except}
         ? (ref $args{-except} eq 'ARRAY' ? @{ $args{-except} } : $args{-except})
         : ()
@@ -188,7 +188,7 @@ sub _method_check {
     if (
       (defined &Class::MOP::class_of and my $meta = Class::MOP::class_of($package))
     ) {
-        my %methods = map { $_ => 1 } $meta->get_method_list;
+        my %methods = map +($_ => 1), $meta->get_method_list;
         $methods{meta} = 1
           if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
         return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
