@@ -8,7 +8,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.28
+version 0.29
 
 =head1 SYNOPSIS
 
@@ -170,7 +170,7 @@ There is also a mailing list available for users of this distribution, at
 L<http://lists.perl.org/list/moose.html>.
 
 There is also an irc channel available for users of this distribution, at
-irc://irc.perl.org/#moose.
+L<C<#moose> on C<irc.perl.org>|irc://irc.perl.org/#moose>.
 
 =head1 AUTHOR
 
@@ -204,19 +204,19 @@ Tomas Doran <bobtfish@bobtfish.net>
 
 =item *
 
-Shawn M Moore <sartak@gmail.com>
+Shawn M Moore <cpan@sartak.org>
 
 =item *
 
-Felix Ostmann <sadrak@sadrak-laptop.(none)>
+Felix Ostmann <sadrak@cpan.org>
 
 =item *
 
-Chris Prather <cprather@hdpublishing.com>
+Chris Prather <chris@prather.org>
 
 =item *
 
-Andrew Rodland <andrew@hbslabs.com>
+Andrew Rodland <arodland@cpan.org>
 
 =back
 
