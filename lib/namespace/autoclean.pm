@@ -9,6 +9,30 @@ our $VERSION = '0.30';
 
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
+
+BEGIN {
+    if (eval { require Sub::Util } && defined &Sub::Util::subname) {
+        *subname = \&Sub::Util::subname;
+    }
+    else {
+        require B;
+        *subname = sub {
+            my ($coderef) = @_;
+            die 'Not a subroutine reference'
+                unless ref $coderef;
+            my $cv = B::svref_2object($coderef);
+            die 'Not a subroutine reference'
+                unless $cv->isa('B::CV');
+            my $gv = $cv->GV;
+            return undef
+                if $gv->isa('B::SPECIAL');
+            my $stash = $gv->STASH;
+            my $package = $stash->isa('B::SPECIAL') ? '__ANON__' : $stash->NAME;
+            return $package . '::' . $gv->NAME;
+        };
+    }
+}
+
 use namespace::clean 0.20;
 
 =head1 SYNOPSIS
@@ -197,11 +221,10 @@ sub _method_check {
         my $does = $package->can('does') ? 'does'
                  : $package->can('DOES') ? 'DOES'
                  : undef;
-        require Sub::Identify;
         return sub {
             return 1 if $_[0] =~ /^\(/;
             my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
-            my $code_stash = Sub::Identify::stash_name($coderef);
+            my ($code_stash) = subname($coderef) =~ /\A(.*)::/s;
             return 1 if $code_stash eq $package;
             return 1 if $code_stash eq 'constant';
             # TODO: consider if we really need this eval
