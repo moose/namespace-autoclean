@@ -1,6 +1,8 @@
 Revision history for namespace-autoclean
 
 {{$NEXT}}
+  - switch from Sub::Identify to Sub::Util (core in modern perls), falling
+    back to B.pm as needed
 
 0.29      2019-08-24 17:07:22Z
   - switch from Test::Requires to Test::Needs
