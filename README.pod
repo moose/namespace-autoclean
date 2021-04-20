@@ -8,7 +8,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.29
+version 0.30
 
 =head1 SYNOPSIS
 
@@ -178,7 +178,7 @@ Florian Ragwitz <rafl@debian.org>
 
 =head1 CONTRIBUTORS
 
-=for stopwords Karen Etheridge Graham Knop Dave Rolsky Kent Fredric Tomas Doran Shawn M Moore Felix Ostmann Chris Prather Andrew Rodland
+=for stopwords Karen Etheridge Graham Knop Dave Rolsky Kent Fredric Tomas Doran Shawn M Moore Felix Ostmann Andrew Rodland Chris Prather
 
 =over 4
 
@@ -212,11 +212,11 @@ Felix Ostmann <sadrak@cpan.org>
 
 =item *
 
-Chris Prather <chris@prather.org>
+Andrew Rodland <arodland@cpan.org>
 
 =item *
 
-Andrew Rodland <arodland@cpan.org>
+Chris Prather <chris@prather.org>
 
 =back
 

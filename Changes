@@ -1,6 +1,6 @@
 Revision history for namespace-autoclean
 
-{{$NEXT}}
+0.30      2021-04-20 17:51:47Z (TRIAL RELEASE)
   - switch from Sub::Identify to Sub::Util (core in modern perls), falling
     back to B.pm as needed
 
